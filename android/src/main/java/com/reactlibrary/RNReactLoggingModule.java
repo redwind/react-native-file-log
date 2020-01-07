@@ -70,16 +70,8 @@ public class RNReactLoggingModule extends ReactContextBaseJavaModule {
 
 
     String writeLogToFile(String content) {
-        File logDirectory = new File( Environment.getExternalStorageDirectory() + "/AeffeCQ" );
-        File logFolder = new File(logDirectory + "/log");
+        File logFolder = new File(Environment.getExternalStorageDirectory() + "/rn-log");
 
-        // create app folder
-        if ( !logDirectory.exists() ) {
-            Boolean directoryCreated = logDirectory.mkdir();
-            if (!directoryCreated) {
-                return "Failed to create directory";
-            }
-        }
 
         // create log folder
         if ( !logFolder.exists() ) {
@@ -167,7 +159,7 @@ public class RNReactLoggingModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void listAllLogFiles(Promise promise) {
-        File logFolder = new File(this.reactContext.getFilesDir().getAbsolutePath() + "/rn-loggings");
+        File logFolder = new File(Environment.getExternalStorageDirectory() + "/rn-log");
         WritableArray result = new WritableNativeArray();
         if (!logFolder.exists() && !logFolder.mkdir()) {
             promise.resolve(result);
